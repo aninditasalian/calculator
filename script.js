@@ -57,6 +57,19 @@ buttonContainer.addEventListener("click", (e) => {
     }
 })
 
+document.addEventListener("keydown", (e) => {
+
+    if (Number(e.key) || (e.key == "0") || (OPERATORS.includes(e.key))){
+        display.textContent += `${e.key}`;
+    }
+    if (e.key == "c" || e.key == "C") {
+        display.textContent = "";
+    }
+    if (e.key == "Backspace") {
+        display.textContent = display.textContent.slice(0, -1);
+    } 
+})
+
 
 function returnResult() {
     let expression = display.textContent;
@@ -79,4 +92,11 @@ function returnResult() {
 }
 
 
-equal.addEventListener("click", returnResult)
+equal.addEventListener("click", returnResult);
+document.addEventListener("keypress", (e) => {
+    if (e.key == "=" || e.key == "Enter") {
+        returnResult();
+    }
+})
+
+

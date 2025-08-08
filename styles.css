@@ -47,8 +47,9 @@ button {
     border: 3px solid #4682A9;
     border-radius: 15px;
     box-shadow: 3px 3px 5px #4682A9;
-    font-size: x-large;
+    font-size: xx-large;
     color:  #4682A9;
+    font-family: "Bona Nova SC";
 
 }
 

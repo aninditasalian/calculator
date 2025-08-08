@@ -71,9 +71,8 @@ document.addEventListener("keydown", (e) => {
 })
 
 
-function returnResult() {
-    let expression = display.textContent;
-    
+function returnResult(expression) {
+
     let operator;
     let indexOfOp;
 
@@ -81,22 +80,58 @@ function returnResult() {
         if (OPERATORS.includes(char)) {
             operator = char;
             indexOfOp = expression.indexOf(char);
+            num1 = Number(expression.slice(0, indexOfOp));
+            num2 = Number(expression.slice(indexOfOp + 1));
+            let result = operate(num1, operator, num2);
+            display.textContent = result;
         }
     }
-
-    num1 = Number(expression.slice(0, indexOfOp));
-    num2 = Number(expression.slice(indexOfOp + 1));
-
-    let result = operate(num1, operator, num2);
-    display.textContent = result;
 }
 
 
-equal.addEventListener("click", returnResult);
-document.addEventListener("keypress", (e) => {
+equal.addEventListener("click", (e) => {
+    let expression = display.textContent;
+    returnResult(expression)
+});
+
+document.addEventListener("keydown", (e) => {
+    let expression = display.textContent;
     if (e.key == "=" || e.key == "Enter") {
-        returnResult();
+        returnResult(expression);
     }
 })
 
 
+let firstExpression = false;
+
+buttonContainer.addEventListener("click", (e) => {
+    let expression;
+    let operator;
+    if (OPERATORS.includes(e.target.className)) {
+        expression = display.textContent;
+        operator = expression.slice(-1)
+        expression = expression.slice(0,-1);
+        for (let i = 0; i < expression.length; i++) {
+            if (OPERATORS.includes(expression[i])) {
+                returnResult(expression);
+                display.textContent += operator;
+            }
+        }
+    }
+}) 
+
+document.addEventListener("keydown", (e) => {
+    let expression;
+    let operator;
+    if (OPERATORS.includes(e.key)) {
+        expression = display.textContent;
+        operator = expression.slice(-1)
+        expression = expression.slice(0,-1);
+        for (let i = 0; i < expression.length; i++) {
+            if (OPERATORS.includes(expression[i])) {
+                returnResult(expression);
+                display.textContent += operator;
+            }
+        }
+    }
+}) 

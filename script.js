@@ -43,6 +43,25 @@ let equal = document.querySelector(".equal");
 let deleteButton = document.querySelector(".delete");
 let decimal = document.querySelector("#decimal");
 
+let zero = document.querySelector(".zero");
+let one = document.querySelector(".one");
+let two = document.querySelector(".two");
+let three = document.querySelector(".three");
+let four = document.querySelector(".four");
+let five = document.querySelector(".five");
+let six = document.querySelector(".six");
+let seven = document.querySelector(".seven");
+let eight = document.querySelector(".eight");
+let nine = document.querySelector(".nine");
+
+numbersArray = [zero, one, two, three, four, five, six, seven, eight, nine];
+
+let plusButton = document.querySelector("#plus");
+let minusButton = document.querySelector("#minus");
+let multiplyButton = document.querySelector("#multiply");
+let divideButton = document.querySelector("#divide");
+
+
 const buttonContainer = document.querySelector(".buttonContainer");
 
 buttonContainer.addEventListener("click", (e) => {
@@ -120,39 +139,43 @@ function returnResult(expression) {
     }
 }
 
-
 document.addEventListener("keydown", (e) => {
 
-    if (Number(e.key) || (e.key == "0") || (OPERATORS.includes(e.key))){
-        display.textContent += `${e.key}`;
+    if (e.key >= "0" && e.key <= "9") {
+        numbersArray[Number(e.key)].click();
     }
+
     if (e.key == "c" || e.key == "C") {
-        display.textContent = "";
+        clear.click();
     }
+
     if (e.key == "Backspace") {
-        display.textContent = display.textContent.slice(0, -1);
+        deleteButton.click();
     } 
-})
 
-document.addEventListener("keydown", (e) => {
-    let expression = display.textContent;
-    if (e.key == "=" || e.key == "Enter") {
-        returnResult(expression);
+    if (e.key == ".") {
+        decimal.click();
     }
-})
 
-document.addEventListener("keydown", (e) => {
-    let expression;
-    let operator;
+    if (e.key == "=" || e.key == "Enter") {
+        equal.click();
+    }
+
     if (OPERATORS.includes(e.key)) {
-        expression = display.textContent;
-        operator = expression.slice(-1)
-        expression = expression.slice(0,-1);
-        for (let i = 0; i < expression.length; i++) {
-            if (OPERATORS.includes(expression[i])) {
-                returnResult(expression);
-                display.textContent += operator;
-            }
+        switch(e.key) {
+            case "+":
+                plusButton.click();
+                break;
+            case "-": 
+                minusButton.click();
+                break;
+            case "*": 
+                multiplyButton.click();
+                break;
+            case "/":
+                divideButton.click();
+                break;
         }
     }
-}) 
+})
+

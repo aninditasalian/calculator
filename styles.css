@@ -22,6 +22,7 @@ body {
 .display {
     color: #FFFBDE;
     height: 50px;
+    max-width: 400px;
 }
 
 .display,
